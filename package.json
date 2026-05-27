@@ -1,0 +1,8 @@
+{
+	"devDependencies": {
+		"@nestjs/config": "^4.0.4"
+	},
+	"dependencies": {
+		"joi": "^18.2.1"
+	}
+}

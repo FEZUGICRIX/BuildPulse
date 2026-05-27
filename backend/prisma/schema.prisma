@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model WorkType {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique @db.VarChar(255)
+  unit      String   @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  workLogs WorkLog[]
+
+  @@map("work_types")
+}
+
+model WorkLog {
+  id           String   @id @default(uuid()) @db.Uuid
+  date         DateTime @db.Date
+  workTypeId   String   @map("work_type_id") @db.Uuid
+  volume       Decimal  @db.Decimal(10, 2)
+  executorName String   @map("executor_name") @db.VarChar(100)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  workType WorkType @relation(fields: [workTypeId], references: [id], onDelete: Restrict)
+
+  @@map("work_logs")
+}

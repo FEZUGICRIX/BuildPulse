@@ -1,0 +1,593 @@
+{
+	"_type": "export",
+	"__export_format": 4,
+	"__export_date": "2026-05-27T00:00:00.000Z",
+	"__export_source": "insomnia.desktop.app:v2023.5.8",
+	"resources": [
+		{
+			"_id": "req_get_work_types",
+			"parentId": "fld_work_types",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-types",
+			"name": "Get All Work Types",
+			"description": "Получить справочник всех видов работ",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305720,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_get_work_logs_all",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Get All Work Logs (No Filters)",
+			"description": "Получить все записи журнала без фильтров",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305720,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_get_work_logs_filtered",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Get Work Logs (With Date Filter)",
+			"description": "Получить записи с фильтрацией по датам",
+			"method": "GET",
+			"body": {},
+			"parameters": [
+				{
+					"id": "pair_dateFrom",
+					"name": "dateFrom",
+					"value": "2024-01-01",
+					"description": "Дата начала (YYYY-MM-DD)",
+					"disabled": false
+				},
+				{
+					"id": "pair_dateTo",
+					"name": "dateTo",
+					"value": "2024-12-31",
+					"description": "Дата окончания (YYYY-MM-DD)",
+					"disabled": false
+				}
+			],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305719,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_get_work_logs_sorted",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Get Work Logs (With Sorting)",
+			"description": "Получить записи с сортировкой",
+			"method": "GET",
+			"body": {},
+			"parameters": [
+				{
+					"id": "pair_sortField",
+					"name": "sortField",
+					"value": "date",
+					"description": "Поле для сортировки: date, workType, volume, executorName",
+					"disabled": false
+				},
+				{
+					"id": "pair_sortOrder",
+					"name": "sortOrder",
+					"value": "desc",
+					"description": "Направление: asc или desc",
+					"disabled": false
+				}
+			],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305718,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_get_work_logs_paginated",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Get Work Logs (With Pagination)",
+			"description": "Получить записи с пагинацией",
+			"method": "GET",
+			"body": {},
+			"parameters": [
+				{
+					"id": "pair_page",
+					"name": "page",
+					"value": "1",
+					"description": "Номер страницы (начиная с 1)",
+					"disabled": false
+				},
+				{
+					"id": "pair_limit",
+					"name": "limit",
+					"value": "10",
+					"description": "Количество записей на странице (макс 100)",
+					"disabled": false
+				}
+			],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305717,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_get_work_logs_full",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Get Work Logs (All Filters Combined)",
+			"description": "Получить записи со всеми фильтрами, сортировкой и пагинацией",
+			"method": "GET",
+			"body": {},
+			"parameters": [
+				{
+					"id": "pair_dateFrom",
+					"name": "dateFrom",
+					"value": "2024-01-01",
+					"description": "",
+					"disabled": false
+				},
+				{
+					"id": "pair_dateTo",
+					"name": "dateTo",
+					"value": "2024-12-31",
+					"description": "",
+					"disabled": false
+				},
+				{
+					"id": "pair_sortField",
+					"name": "sortField",
+					"value": "date",
+					"description": "",
+					"disabled": false
+				},
+				{
+					"id": "pair_sortOrder",
+					"name": "sortOrder",
+					"value": "desc",
+					"description": "",
+					"disabled": false
+				},
+				{
+					"id": "pair_page",
+					"name": "page",
+					"value": "1",
+					"description": "",
+					"disabled": false
+				},
+				{
+					"id": "pair_limit",
+					"name": "limit",
+					"value": "20",
+					"description": "",
+					"disabled": false
+				}
+			],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305716,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Valid)",
+			"description": "Создать новую запись журнала с валидными данными",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": 15.5,\n  \"executorName\": \"Иванов Иван Иванович\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305715,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log_invalid_date",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Future Date - Invalid)",
+			"description": "Попытка создать запись с датой в будущем (должна вернуть 400)",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2030-12-31\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": 10,\n  \"executorName\": \"Петров Петр Петрович\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305714,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log_invalid_volume",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Negative Volume - Invalid)",
+			"description": "Попытка создать запись с отрицательным объёмом (должна вернуть 400)",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": -5,\n  \"executorName\": \"Сидоров Сидор Сидорович\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305713,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log_invalid_executor",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Short Name - Invalid)",
+			"description": "Попытка создать запись с коротким именем (должна вернуть 400)",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": 10,\n  \"executorName\": \"Ив\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305712,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log_invalid_work_type",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Invalid WorkType - Invalid)",
+			"description": "Попытка создать запись с несуществующим workTypeId (должна вернуть 400)",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\",\n  \"workTypeId\": \"00000000-0000-0000-0000-000000000000\",\n  \"volume\": 10,\n  \"executorName\": \"Тестов Тест Тестович\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305711,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_create_work_log_missing_fields",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs",
+			"name": "Create Work Log (Missing Fields - Invalid)",
+			"description": "Попытка создать запись без обязательных полей (должна вернуть 400)",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305710,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_update_work_log",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs/{{ _.work_log_id }}",
+			"name": "Update Work Log (Valid)",
+			"description": "Обновить существующую запись журнала",
+			"method": "PATCH",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-26\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": 20.75,\n  \"executorName\": \"Иванов Иван Иванович (обновлено)\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305709,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_update_work_log_not_found",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs/00000000-0000-0000-0000-000000000000",
+			"name": "Update Work Log (Not Found - 404)",
+			"description": "Попытка обновить несуществующую запись (должна вернуть 404)",
+			"method": "PATCH",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"date\": \"2024-05-27\",\n  \"workTypeId\": \"{{ _.work_type_id }}\",\n  \"volume\": 10,\n  \"executorName\": \"Тестов Тест Тестович\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1779873305708,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_delete_work_log",
+			"parentId": "fld_work_logs",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs/{{ _.work_log_id }}",
+			"name": "Delete Work Log (Valid)",
+			"description": "Удалить существующую запись журнала",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305707,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_delete_work_log_not_found",
+			"parentId": "fld_work_logs_validation",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"url": "{{ _.base_url }}/api/work-logs/00000000-0000-0000-0000-000000000000",
+			"name": "Delete Work Log (Not Found - 404)",
+			"description": "Попытка удалить несуществующую запись (должна вернуть 404)",
+			"method": "DELETE",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1779873305706,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_work_types",
+			"parentId": "wrk_main",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"name": "Work Types (Справочник)",
+			"description": "Endpoints для работы со справочником видов работ",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1779873305720,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_work_logs",
+			"parentId": "wrk_main",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"name": "Work Logs (Записи журнала)",
+			"description": "CRUD операции для записей журнала работ",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1779873305719,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_work_logs_validation",
+			"parentId": "wrk_main",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"name": "Work Logs Validation (Тесты валидации)",
+			"description": "Тестирование валидации и обработки ошибок",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1779873305718,
+			"_type": "request_group"
+		},
+		{
+			"_id": "wrk_main",
+			"parentId": null,
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"name": "BuildPulse API",
+			"description": "Журнал работ на строительном объекте - REST API",
+			"scope": "collection",
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_main",
+			"parentId": "wrk_main",
+			"modified": 1779873305720,
+			"created": 1779873305720,
+			"name": "Base Environment",
+			"data": {
+				"base_url": "http://localhost:3000",
+				"work_type_id": "ЗАМЕНИТЕ_НА_РЕАЛЬНЫЙ_UUID_ИЗ_GET_WORK_TYPES",
+				"work_log_id": "ЗАМЕНИТЕ_НА_РЕАЛЬНЫЙ_UUID_ИЗ_GET_WORK_LOGS"
+			},
+			"dataPropertyOrder": {
+				"&": ["base_url", "work_type_id", "work_log_id"]
+			},
+			"color": null,
+			"isPrivate": false,
+			"metaSortKey": 1779873305720,
+			"_type": "environment"
+		}
+	]
+}
