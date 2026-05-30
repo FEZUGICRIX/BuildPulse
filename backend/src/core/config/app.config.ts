@@ -10,6 +10,7 @@ export const appConfig: ConfigModuleOptions = {
   validationSchema: Joi.object({
     DATABASE_URL: Joi.string().uri().required(),
     BACKEND_PORT: Joi.number().default(4000),
+    CORS_ORIGIN: Joi.string().default('http://localhost:3000'),
   }),
 
   validationOptions: {

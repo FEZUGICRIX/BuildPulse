@@ -1,20 +1,24 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { ValidationPipe, BadRequestException, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './core/filters/http-exception.filter';
 import { ConfigService } from '@nestjs/config';
+import { PrismaClientExceptionFilter } from './core/filters/prisma-exception.filter';
+import { HttpAdapterHost } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
+  const logger = new Logger('Bootstrap');
 
-  app.useGlobalFilters(new AllExceptionsFilter());
+  const httpAdapterHost = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new PrismaClientExceptionFilter(), new AllExceptionsFilter(httpAdapterHost));
 
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       whitelist: true,
-      forbidNonWhitelisted: false,
+      forbidNonWhitelisted: true,
       exceptionFactory: (errors) => {
         const formattedErrors: Record<string, string[]> = {};
 
@@ -32,12 +36,13 @@ async function bootstrap() {
     }),
   );
 
-  // TODO: вынести в core/config
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: [config.get<string>('CORS_ORIGIN', 'http://localhost:3000')],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   });
 
-  await app.listen(config.getOrThrow<number>('BACKEND_PORT'));
+  const port = config.getOrThrow<number>('BACKEND_PORT');
+  logger.log(`Application listening on port ${port}`);
+  await app.listen(port);
 }
 void bootstrap();

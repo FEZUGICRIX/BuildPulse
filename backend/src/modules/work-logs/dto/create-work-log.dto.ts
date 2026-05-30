@@ -12,7 +12,7 @@ import {
 } from 'class-validator';
 
 @ValidatorConstraint({ name: 'maxDate', async: false })
-class MaxDateConstraint implements ValidatorConstraintInterface {
+export class MaxDateConstraint implements ValidatorConstraintInterface {
   validate(dateString: string) {
     const inputDate = new Date(dateString);
     const today = new Date();

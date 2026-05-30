@@ -1,10 +1,6 @@
-import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '@prisma/client';
-import { Pool } from 'pg';
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from '../src/app.module';
+import { PrismaService } from '../src/modules/prisma/prisma.service';
 
 const workTypes = [
   { name: 'Кладка перегородок', unit: 'м³' },
@@ -16,6 +12,9 @@ const workTypes = [
 ];
 
 async function seed() {
+  const app = await NestFactory.createApplicationContext(AppModule);
+  const prisma = app.get(PrismaService);
+
   console.log('Seeding work types...');
 
   for (const wt of workTypes) {
@@ -27,13 +26,10 @@ async function seed() {
   }
 
   console.log('Seeding completed.');
+  await app.close();
 }
 
-seed()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+seed().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

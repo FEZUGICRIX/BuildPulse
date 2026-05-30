@@ -1,10 +1,5 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { PrismaService } from '@/core/prisma/prisma.service';
 import { QueryWorkLogDto } from './dto/query-work-log.dto';
 import { CreateWorkLogDto } from './dto/create-work-log.dto';
 import { UpdateWorkLogDto } from './dto/update-work-log.dto';
@@ -49,135 +44,82 @@ export class WorkLogsService {
 
     const skip = (page - 1) * limit;
 
-    try {
-      const [data, total] = await Promise.all([
-        this.prisma.workLog.findMany({
-          where,
-          orderBy,
-          skip,
-          take: limit,
-          include: {
-            workType: true,
-          },
-        }),
-        this.prisma.workLog.count({ where }),
-      ]);
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.workLog.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+        include: { workType: true },
+      }),
+      this.prisma.workLog.count({ where }),
+    ]);
 
-      return {
-        data,
-        total,
-        page,
-        limit,
-      };
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'Ошибка при получении списка записей',
-      );
-    }
+    return { data, total, page, limit };
   }
 
-  async create(createWorkLogDto: CreateWorkLogDto) {
-    const { date, workTypeId, volume, executorName } = createWorkLogDto;
+  async create(dto: CreateWorkLogDto) {
+    const { date, workTypeId, volume, executorName } = dto;
 
-    try {
+    const workType = await this.prisma.workType.findUnique({
+      where: { id: workTypeId },
+    });
+
+    if (!workType) {
+      throw new BadRequestException('Вид работ не найден');
+    }
+
+    return this.prisma.workLog.create({
+      data: {
+        date: new Date(date),
+        workTypeId,
+        volume,
+        executorName,
+      },
+      include: { workType: true },
+    });
+  }
+
+  async update(id: string, dto: UpdateWorkLogDto) {
+    if (dto.workTypeId) {
       const workType = await this.prisma.workType.findUnique({
-        where: { id: workTypeId },
+        where: { id: dto.workTypeId },
       });
 
       if (!workType) {
         throw new BadRequestException('Вид работ не найден');
       }
-
-      const workLog = await this.prisma.workLog.create({
-        data: {
-          date: new Date(date),
-          workTypeId,
-          volume,
-          executorName,
-        },
-        include: {
-          workType: true,
-        },
-      });
-
-      return workLog;
-    } catch (error) {
-      if (
-        error instanceof BadRequestException ||
-        error instanceof NotFoundException
-      ) {
-        throw error;
-      }
-      throw new InternalServerErrorException('Ошибка при создании записи');
     }
-  }
 
-  async update(id: string, updateWorkLogDto: UpdateWorkLogDto) {
-    try {
-      const existingWorkLog = await this.prisma.workLog.findUnique({
-        where: { id },
-      });
+    const data: Prisma.WorkLogUpdateInput = {};
 
-      if (!existingWorkLog) {
-        throw new NotFoundException('Запись не найдена');
-      }
-
-      const { date, workTypeId, volume, executorName } = updateWorkLogDto;
-
-      const workType = await this.prisma.workType.findUnique({
-        where: { id: workTypeId },
-      });
-
-      if (!workType) {
-        throw new BadRequestException('Вид работ не найден');
-      }
-
-      const updatedWorkLog = await this.prisma.workLog.update({
-        where: { id },
-        data: {
-          date: new Date(date),
-          workTypeId,
-          volume,
-          executorName,
-        },
-        include: {
-          workType: true,
-        },
-      });
-
-      return updatedWorkLog;
-    } catch (error) {
-      if (
-        error instanceof BadRequestException ||
-        error instanceof NotFoundException
-      ) {
-        throw error;
-      }
-      throw new InternalServerErrorException('Ошибка при обновлении записи');
+    if (dto.date !== undefined) {
+      data.date = new Date(dto.date);
     }
+    if (dto.workTypeId !== undefined) {
+      data.workType = { connect: { id: dto.workTypeId } };
+    }
+    if (dto.volume !== undefined) {
+      data.volume = dto.volume;
+    }
+    if (dto.executorName !== undefined) {
+      data.executorName = dto.executorName;
+    }
+
+    if (Object.keys(data).length === 0) {
+      throw new BadRequestException('Нет полей для обновления');
+    }
+
+    return this.prisma.workLog.update({
+      where: { id },
+      data,
+      include: { workType: true },
+    });
   }
 
   async delete(id: string) {
-    try {
-      const existingWorkLog = await this.prisma.workLog.findUnique({
-        where: { id },
-      });
-
-      if (!existingWorkLog) {
-        throw new NotFoundException('Запись не найдена');
-      }
-
-      await this.prisma.workLog.delete({
-        where: { id },
-      });
-    } catch (error) {
-      if (
-        error instanceof BadRequestException ||
-        error instanceof NotFoundException
-      ) {
-        throw error;
-      }
-      throw new InternalServerErrorException('Ошибка при удалении записи');
-    }
+    await this.prisma.workLog.delete({
+      where: { id },
+    });
   }
 }

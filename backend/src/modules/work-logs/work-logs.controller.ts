@@ -33,10 +33,7 @@ export class WorkLogsController {
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  async update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateWorkLogDto: UpdateWorkLogDto,
-  ) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() updateWorkLogDto: UpdateWorkLogDto) {
     return this.workLogsService.update(id, updateWorkLogDto);
   }
 
