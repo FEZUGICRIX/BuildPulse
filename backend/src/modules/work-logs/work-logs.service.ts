@@ -3,7 +3,7 @@ import { PrismaService } from '@/core/prisma/prisma.service';
 import { QueryWorkLogDto } from './dto/query-work-log.dto';
 import { CreateWorkLogDto } from './dto/create-work-log.dto';
 import { UpdateWorkLogDto } from './dto/update-work-log.dto';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@/prisma/generated';
 
 @Injectable()
 export class WorkLogsService {

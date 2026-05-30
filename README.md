@@ -35,7 +35,9 @@ Construction work journal with type-safe full-stack architecture.
 ```bash
 git clone <repository-url>
 cd BuildPulse
+
 docker compose up --build
+docker compose up -d
 ```
 
 The application will be available at:

@@ -26,6 +26,12 @@ importers:
       '@prisma/client':
         specifier: ^7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.9.3))(typescript@5.9.3)
+      '@prisma/client-runtime-utils':
+        specifier: ^7.8.0
+        version: 7.8.0
+      '@prisma/engines-version':
+        specifier: 7.8.0-6.3c6e192761c0362d496ed980de936e2f3cebcd3a
+        version: 7.8.0-6.3c6e192761c0362d496ed980de936e2f3cebcd3a
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
